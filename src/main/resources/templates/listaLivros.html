@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Livros</title>
+    <script>
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <div th:insert="~{fragments/header :: cabecalho}"></div>
+    <h2>Lista de Livros</h2>
+    <br>
+    <table>
+        <thead>
+        <tr>
+            <th>Dados do Livro</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livro: ${listaLivros}">
+            <td th:text="${livro.autor + ' - ' + livro.titulo}"></td>
+            <td><button th:attr="onclick=|showModal('${'infoModal' + livro.id}')|">+ info</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:each="livro : ${listaLivros}" th:attr="id=${'infoModal' + livro.id}" style="display: none">
+        <p>
+            ID: <span th:text="${livro.id}"></span><br>
+            Título: <span th:text="${livro.titulo}"></span><br>
+            Autor: <span th:text="${livro.autor}"></span><br>
+            Gênero: <span th:text="${livro.genero.descricao}"></span><br>
+            Páginas: <span th:text="${livro.paginas}"></span><br>
+            Editora: <span th:text="${livro.editora}"></span><br>
+            ISBN: <span th:text="${livro.isbn}"></span><br>
+            Data de Publicação: <span th:text="${livro.dataPublicacao}"></span><br>
+            Preço: <span th:text="${livro.preco}"></span><br>
+
+            <a th:href="@{/livros/update/{id}(id = ${livro.id})}">Editar</a>
+            | <a th:href="@{/livros/deletar/{id}(id = ${livro.id})}">Deletar</a>
+        </p>
+        <button th:attr="onclick=|hideModal('${'infoModal' + livro.id}')|">Fechar</button>
+    </div>
+    <div th:insert="~{fragments/footer :: rodape}"></div>
+</body>
+</html>

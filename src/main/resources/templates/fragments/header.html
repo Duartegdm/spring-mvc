@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cabeçalho</title>
+</head>
+<body>
+  <div th:fragment="cabecalho">
+    <h1><span th:text="${#messages.msg('app.name')}"></span></h1>
+    <a th:href="@{/livros/lista}">Listar Livros</a> | <a th:href="@{/livros/cadastro}">Cadastrar Livro</a> |
+    <a href="?lang=pt_BR">Site em Português</a> | <a href="?lang=en">Site em Inglês</a>
+  </div>
+</body>
+</html>

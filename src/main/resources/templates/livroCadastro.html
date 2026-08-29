@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Livro</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+  <div th:insert="~{fragments/header :: cabecalho}"></div>
+  <form method="post" th:action="@{/livros/cadastrar}" th:object="${livro}">
+    <h2>Cadastro de Livro</h2>
+    <input type="hidden" th:field="*{id}">
+    <br>
+    <div>
+      <label for="titulo">Título:</label> <input type="text" id="titulo" th:field="*{titulo}">
+      <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" th:errorClass="error"></p>
+    </div>
+    <div>
+      <label for="autor">Autor:</label> <input type="text" id="autor" th:field="*{autor}">
+      <p th:if="${#fields.hasErrors('autor')}" th:errors="*{autor}" th:errorClass="error"></p>
+    </div>
+    <div>
+      <label for="genero">Gênero:</label>
+      <select id="genero" th:field="*{genero}">
+        <option value="" disabled selected>Selecione...</option>
+        <option th:each="gen : ${generos}" th:value="${gen}" th:text="${gen.descricao}"></option>
+      </select>
+      <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}" th:errorClass="error"></p>
+    </div>
+    <div>
+      <label for="paginas">Número de Páginas:</label> <input type="number" id="paginas" th:field="*{paginas}">
+    </div>
+    <div>
+      <label for="editora">Editora:</label> <input type="text" id="editora" th:field="*{editora}">
+    </div>
+    <div>
+      <label for="isbn">ISBN:</label> <input type="text" id="isbn" th:field="*{isbn}">
+      <p th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" th:errorClass="error"></p>
+    </div>
+    <div>
+      <label for="dataPublicacao">Data de Publicação:</label> <input type="date" id="dataPublicacao" th:field="*{dataPublicacao}">
+    </div>
+    <div>
+      <label for="preco">Preço:</label> <input type="number" id="preco" th:field="*{preco}">
+    </div>
+    <div>
+      <button type="submit">Salvar</button>
+    </div>
+  </form>
+  <div th:insert="~{fragments/footer :: rodape}"></div>
+</body>
+</html>
