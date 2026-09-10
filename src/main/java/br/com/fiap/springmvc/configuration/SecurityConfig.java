@@ -24,7 +24,7 @@ public class SecurityConfig {
                                         .anyRequest().authenticated()
                 ).oauth2Login(oauth2 ->
                         oauth2
-                                .defaultSuccessUrl("/livros/lista")
+                                .defaultSuccessUrl("/livros/lista", true)
                 )
                 .formLogin(Customizer.withDefaults())
                 .build();
